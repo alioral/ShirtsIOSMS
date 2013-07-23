@@ -42,7 +42,7 @@ def reply_to_sms_messages(request):
             newOrder.shirtMessage = incomingText
             newOrder.shirtPicturePath = picturePath
             newOrder.save()
-            msg = constants.generateVerification(incomingText)
+            msg = helper.generateVerification(incomingText)
     except:
         msg = constants.ERROR_MESSAGE_SERVER
 
