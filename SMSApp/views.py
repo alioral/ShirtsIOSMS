@@ -43,6 +43,7 @@ def reply_to_sms_messages(request):
             newOrder.shirtPicturePath = picturePath
             newOrder.save()
             msg = helper.generateVerification(incomingText)
+            print 'MESSAGE: ' + msg
     except:
         msg = constants.ERROR_MESSAGE_SERVER
 
@@ -50,23 +51,3 @@ def reply_to_sms_messages(request):
     r.sms(msg)
     return r
     
-
-
-    '''
-    print 'Printing parameters'
-
-    for i in request:
-        print i
-
-    requestQueryDict = request.POST.copy()
-
-    try:
-        messageToSend = requestQueryDict['Body']
-    except:
-        messageToSend = 'An error occured'
-
-    r = Response()
-    r.sms(messageToSend)
-
-    return r
-    '''
