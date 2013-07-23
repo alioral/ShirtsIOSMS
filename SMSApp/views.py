@@ -7,7 +7,7 @@ import models
 import constants
 import helper
 
-connect('phoneDB')
+connect('heroku_app17085708', host= constants.DB_URL)
 
 @twilio_view
 def reply_to_sms_messages(request):
