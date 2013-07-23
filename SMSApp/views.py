@@ -10,6 +10,10 @@ def reply_to_sms_messages(request):
     for i in request:
         print i
 
+    for key, value in request.POST.copy():
+        print 'Key: ' + key
+        print 'Value: ' + value
+
     try:
         messageToSend = request['Body']
     except:
