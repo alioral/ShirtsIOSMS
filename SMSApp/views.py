@@ -9,10 +9,11 @@ def reply_to_sms_messages(request):
 
     for i in request:
         print i
+        print 'Body: ' + i['Body']
         print '\n\n\n'
 
     try:
-        messageToSend = request['body']
+        messageToSend = request['Body']
     except:
         messageToSend = 'An error occured'
     r = Response()
