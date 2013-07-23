@@ -16,7 +16,7 @@ def reply_to_sms_messages(request):
     imgObject = helper.generateShirtImage('5316326123', msg)
 
     r = Response()
-    r.sms(path + imgObject['img'])
+    r.sms(imgObject['imgPath'] + '\n' +imgObject['img'])
     return r
     '''
     requestQueryDict = request.POST.copy()
