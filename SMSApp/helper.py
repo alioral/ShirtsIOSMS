@@ -9,7 +9,7 @@ def generateShirtImage(phoneNumber, message):
 	
 	path = os.path.join(settings.STATIC_URL, 'fonts/kberry.ttf')
 
-	font = ImageFont.truetype("Arial.ttf", 12)
+	font = ImageFont.truetype("./sixty.ttf", 12)
 	#print 'Hello'
 	img = Image.open(settings.STATIC_URL + 'images/shirt.png')
 	draw = ImageDraw.Draw(img)
