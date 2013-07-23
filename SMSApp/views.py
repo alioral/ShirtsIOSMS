@@ -9,6 +9,7 @@ def reply_to_sms_messages(request):
 
     for i in request:
         print i
+        print '\n\n\n'
 
     try:
         messageToSend = request['body']
