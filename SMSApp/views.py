@@ -6,12 +6,12 @@ from django_twilio.decorators import twilio_view
 def reply_to_sms_messages(request):
 	
     print 'Printing parameters'
-    
+
     for i in request:
         print i
 
     try:
-        messageToSend = request['Body']
+        messageToSend = request['body']
     except:
         messageToSend = 'An error occured'
     r = Response()
