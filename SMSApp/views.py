@@ -45,7 +45,8 @@ def reply_to_sms_messages(request):
             newOrder.shirtPicturePath = picturePath
             newOrder.save()
             print 'all saved'
-            msg = helper.generateVerification(constants.APPLICATION_IMAGE_LINK + incomingPhoneNumber.png)
+            msg = helper.generateVerification(constants.APPLICATION_IMAGE_LINK + 
+                incomingPhoneNumber + ".png")
             print 'myFinalMessage: ' + msg
     except:
         msg = constants.ERROR_MESSAGE_SERVER
