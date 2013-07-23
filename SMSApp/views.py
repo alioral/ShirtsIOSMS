@@ -8,6 +8,7 @@ import models
 import constants
 import helper
 
+
 connect('heroku_app17085708', host= constants.DB_URL)
 
 @twilio_view
@@ -43,8 +44,8 @@ def reply_to_sms_messages(request):
             newOrder.shirtMessage = incomingText
             newOrder.shirtPicturePath = picturePath
             newOrder.save()
-            msg = helper.generateVerification(incomingText, 
-                settings.APPLICATION_IMAGE_LINK + incomingPhoneNumber.png)
+            print 'all saved'
+            msg = helper.generateVerification(constants.APPLICATION_IMAGE_LINK + incomingPhoneNumber.png)
             print 'myFinalMessage: ' + msg
     except:
         msg = constants.ERROR_MESSAGE_SERVER

@@ -20,5 +20,5 @@ def generateShirtImage(phoneNumber, message):
 	img.save(imagePath)
 	return imagePath
 
-def generateVerification(message, link):
-	return 'Check out the shirt here: ' + link + '\nWould you like the buy the shirt "' + message + '"? (Reply YES/ NO)'
+def generateVerification(link):
+	return 'Check out the shirt here: ' + link + '\nTo buy shirt type YES to decline NO'
