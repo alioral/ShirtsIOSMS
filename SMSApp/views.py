@@ -10,10 +10,10 @@ def reply_to_sms_messages(request):
     for i in request:
         print i
 
-    requestQueryDict = request.POST.copy()
+    print 'Body text: ' + request.POST.copy()['Body']
 
     try:
-        messageToSend = requestQueryDict['Body']
+        messageToSend = request.POST.copy()['Body']
     except:
         messageToSend = 'An error occured'
 
