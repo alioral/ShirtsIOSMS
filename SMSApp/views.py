@@ -27,6 +27,9 @@ def reply_to_sms_messages(request):
         incomingPhoneNumber = requestQueryDict['From'].replace('%2B', '+')
         incomingText = requestQueryDict['Body']
 
+        print 'incomingPhoneNumber: ' + incomingPhoneNumber
+        print 'incomingText: ' + requestQueryDict['Body']
+
         orders = models.ShirtRequest.objects(phoneNumber='1')
 
         if orders.count() > 0:
@@ -40,6 +43,7 @@ def reply_to_sms_messages(request):
             else:
                 msg = constants.ERROR_MESSAGE_ALREADY_HAVE_SHIRT_REQUEST
         else:
+            print 'In here'
             picturePath = helper.generateShirtImage(incomingPhoneNumber, 
                                                     incomingText)
             newOrder = models.ShirtRequest(phoneNumber = incomingPhoneNumber)
