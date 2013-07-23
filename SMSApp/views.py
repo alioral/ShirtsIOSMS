@@ -12,13 +12,15 @@ connect('heroku_app17085708', host= constants.DB_URL)
 @twilio_view
 def reply_to_sms_messages(request):
 
+    '''
     msg = 'Hello, World'
     imgObject = helper.generateShirtImage('5316326123', msg)
 
     r = Response()
-    r.sms(imgObject['imgPath'] + '\n' +imgObject['img'])
+    r.sms(imgObject['imgPath'] + '\n' + str(imgObject['img']))
     return r
     '''
+    
     requestQueryDict = request.POST.copy()
 
     try:
@@ -38,16 +40,20 @@ def reply_to_sms_messages(request):
             else:
                 msg = constants.ERROR_MESSAGE_ALREADY_HAVE_SHIRT_REQUEST
         else:
-            msg = 'Going to create a tshirt image'
+            picturePath = helper.generateShirtImage(incomingPhoneNumber, 
+                                                    incomingText)
             newOrder = models.ShirtRequest(phoneNumber = incomingPhoneNumber)
+            newOrder.shirtMessage = incomingText
+            newOrder.shirtPicturePath = picturePath
             newOrder.save()
+            msg = generateVerification(incomingText)
     except:
         msg = constants.ERROR_MESSAGE_SERVER
 
     r = Response()
     r.sms(msg)
     return r
-    '''
+    
 
 
     '''

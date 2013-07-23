@@ -19,4 +19,7 @@ def generateShirtImage(phoneNumber, message):
 	imagePath = "SMSApp/shirtimages/" + phoneNumber + ".png"
 
 	img.save(imagePath)
-	return {'imgPath': imagePath, 'img': img}
+	return imagePath
+
+def generateVerification(message):
+	return 'Would you like the buy the shirt "' + message + '"? (Reply YES/ NO)'
