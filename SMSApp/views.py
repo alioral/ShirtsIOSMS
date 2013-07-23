@@ -21,7 +21,7 @@ def reply_to_sms_messages(request):
         print 'incomingPhoneNumber: ' + incomingPhoneNumber
         print 'incomingText: ' + requestQueryDict['Body']
 
-        orders = models.ShirtRequest.objects(phoneNumber='1')
+        orders = models.ShirtRequest.objects(phoneNumber=incomingPhoneNumber)
 
         if orders.count() > 0:
             if incomingText in ["yes", "YES", "no", "NO"]:
