@@ -5,9 +5,9 @@ from django_twilio.decorators import twilio_view
 @twilio_view
 def reply_to_sms_messages(request):
 	
-	for i in request:
-		print i + ' ' + request[i]
-    
+    for i in request:
+        print i
+        
     r = Response()
     r.sms('Thanks for the SMS message!')
     return r
