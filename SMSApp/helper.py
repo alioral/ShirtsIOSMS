@@ -7,17 +7,16 @@ from SMSProject import settings
 
 def generateShirtImage(phoneNumber, message):
 	
-	path = os.path.join(settings.STATIC_URL, 'fonts/kberry.ttf')
 
-	font = ImageFont.truetype("/static/fonts/kberry.ttf", 12)
+	font = ImageFont.truetype('SMSProject/static/fonts/kberry.ttf', 30)
 	#print 'Hello'
-	img = Image.open(settings.STATIC_URL + 'images/shirt.png')
+	img = Image.open('SMSApp/shirtimages/shirt.png')
 	draw = ImageDraw.Draw(img)
 	draw.text((125, 150),message,(0,0,0),font=font)
 	draw = ImageDraw.Draw(img)
 	draw = ImageDraw.Draw(img)
 
-	imagePath = "shirtimages/" + phoneNumber + ".png"
+	imagePath = "SMSApp/shirtimages/" + phoneNumber + ".png"
 
 	img.save(imagePath)
-	return imagePath
+	return {'imagePath': imagePath, 'img': img}

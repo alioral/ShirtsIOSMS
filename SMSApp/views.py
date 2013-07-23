@@ -13,10 +13,10 @@ connect('heroku_app17085708', host= constants.DB_URL)
 def reply_to_sms_messages(request):
 
     msg = 'Hello, World'
-    path = helper.generateShirtImage('5316326123', msg)
+    imgObject = helper.generateShirtImage('5316326123', msg)
 
     r = Response()
-    r.sms(path)
+    r.sms(path + imgObject['img'])
     return r
     '''
     requestQueryDict = request.POST.copy()
