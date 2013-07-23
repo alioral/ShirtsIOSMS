@@ -11,15 +11,6 @@ connect('heroku_app17085708', host= constants.DB_URL)
 
 @twilio_view
 def reply_to_sms_messages(request):
-
-    '''
-    msg = 'Hello, World'
-    imgObject = helper.generateShirtImage('5316326123', msg)
-
-    r = Response()
-    r.sms(imgObject['imgPath'] + '\n' + str(imgObject['img']))
-    return r
-    '''
     
     requestQueryDict = request.POST.copy()
 
@@ -46,6 +37,7 @@ def reply_to_sms_messages(request):
             print 'In here'
             picturePath = helper.generateShirtImage(incomingPhoneNumber, 
                                                     incomingText)
+            print 'picturePath: ' + picturePath
             newOrder = models.ShirtRequest(phoneNumber = incomingPhoneNumber)
             newOrder.shirtMessage = incomingText
             newOrder.shirtPicturePath = picturePath
