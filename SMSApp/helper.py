@@ -19,4 +19,4 @@ def generateShirtImage(phoneNumber, message):
 	imagePath = "SMSApp/shirtimages/" + phoneNumber + ".png"
 
 	img.save(imagePath)
-	return {'imagePath': imagePath, 'img': img}
+	return {'imgPath': imagePath, 'img': img}
