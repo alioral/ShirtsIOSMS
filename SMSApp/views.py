@@ -28,7 +28,7 @@ def reply_to_sms_messages(request):
             if incomingText in ["yes", "YES", "no", "NO"]:
                 msg = 'Accepted or rejected to print shirt'
                 
-                if incomingText in ["yes", "YES"]:
+                if incomingText in constants.YES_ARRAY:
                     msg = constants.SUCCESS_MESSAGE
 
                 orders.delete()
@@ -45,6 +45,7 @@ def reply_to_sms_messages(request):
             newOrder.save()
             msg = helper.generateVerification(incomingText, 
                 settings.APPLICATION_IMAGE_LINK + incomingPhoneNumber.png)
+            print 'myFinalMessage: ' + msg
     except:
         msg = constants.ERROR_MESSAGE_SERVER
 
