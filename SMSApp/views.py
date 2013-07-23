@@ -1,6 +1,7 @@
 # Create your views here.
 from twilio.twiml import Response
 from django_twilio.decorators import twilio_view
+from django.shortcuts import render
 from mongoengine import *
 
 import models
@@ -15,7 +16,7 @@ def reply_to_sms_messages(request):
     requestQueryDict = request.POST.copy()
 
     try:
-        incomingPhoneNumber = requestQueryDict['From'].replace('%2B', '+')
+        incomingPhoneNumber = requestQueryDict['From'].replace('%2B', '')
         incomingText = requestQueryDict['Body']
 
         print 'incomingPhoneNumber: ' + incomingPhoneNumber
@@ -42,13 +43,15 @@ def reply_to_sms_messages(request):
             newOrder.shirtMessage = incomingText
             newOrder.shirtPicturePath = picturePath
             newOrder.save()
-            #msg = helper.generateVerification(incomingText)
-            msg = 'Shirt has been created'
-            print 'MESSAGE: ' + msg
+            msg = helper.generateVerification(incomingText, 
+                settings.APPLICATION_IMAGE_LINK + incomingPhoneNumber.png)
     except:
         msg = constants.ERROR_MESSAGE_SERVER
 
     r = Response()
     r.sms(msg)
     return r
+
+def show_image(request):
+    return render(request, 'img.html', {'url_of_image': './SMSApp/shirtimages/shirt.png'})
     

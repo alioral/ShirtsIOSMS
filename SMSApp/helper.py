@@ -2,7 +2,6 @@ import PIL
 from PIL import ImageFont
 from PIL import Image
 from PIL import ImageDraw
-import os.path
 from SMSProject import settings
 
 def generateShirtImage(phoneNumber, message):
@@ -21,5 +20,5 @@ def generateShirtImage(phoneNumber, message):
 	img.save(imagePath)
 	return imagePath
 
-def generateVerification(message):
-	return 'Would you like the buy the shirt "' + message + '"? (Reply YES/ NO)'
+def generateVerification(message, link):
+	return 'Check out the shirt here: ' + link + '\nWould you like the buy the shirt "' + message + '"? (Reply YES/ NO)'
