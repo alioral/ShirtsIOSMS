@@ -17,14 +17,11 @@ def reply_to_sms_messages(request):
     requestQueryDict = request.POST.copy()
 
     try:
-        #incomingPhoneNumber = requestQueryDict['From'].replace('%2B', '')
-        #incomingText = requestQueryDict['Body']
+        incomingPhoneNumber = requestQueryDict['From'].replace('%2B', '')
+        incomingText = requestQueryDict['Body']
 
-        #print 'incomingPhoneNumber: ' + incomingPhoneNumber
-        #print 'incomingText: ' + requestQueryDict['Body']
-
-        incomingPhoneNumber = '+905316326123'
-        incomingText = 'YES'
+        print 'incomingPhoneNumber: ' + incomingPhoneNumber
+        print 'incomingText: ' + requestQueryDict['Body']
 
         orders = models.ShirtRequest.objects(phoneNumber=incomingPhoneNumber)
 
