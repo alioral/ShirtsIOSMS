@@ -62,8 +62,10 @@ def returnText(obj):
 		msg = 'Order ID: ' + jsonObject['order_id']
 		msg = msg + '\nDelivery Date: '+ str(jsonObject['delivery_date'])
 		msg = msg + '\nNotes:'
-		for w in jsonObject['warnings']:
-			msg = msg + '\n' + w
+		#for w in jsonObject['warnings']:
+			#msg = msg + '\n' + w
+		lastNoteIndex = len(jsonObject['warnings']) - 1
+		msg += jsonObject['warnings'][lastNoteIndex]
 	except:
 		msg = 'ERROR'
 
