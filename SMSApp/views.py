@@ -31,8 +31,10 @@ def reply_to_sms_messages(request):
                 
                 if incomingText in constants.YES_ARRAY:
                     #msg = constants.SUCCESS_MESSAGE
+                    print 'Going to make the request'
                     getResponse = helper.makeRequest('POST', 'https://www.shirts.io/api/v1/order/', 
                                       constants.ORDER_API_MAPPINGS)
+                    print 'JSON' + getResponse.json()
                     msg = helper.returnText(getResponse.json())
 
                 orders.delete()
