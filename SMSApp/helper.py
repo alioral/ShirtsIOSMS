@@ -28,12 +28,16 @@ def generateVerification(link):
 
 def makeRequest(method, url, mapping):
 
+	print 'Method: ' + method
+	print 'URL: ' + url
+	print 'Mapping: ' + str(mapping)
+
 	if method == 'GET':
 		req = requests.get(url, params = mapping)
 	else:
 		req = requests.post(url, data = mapping)
 
-	print 'REQ: ' + req
+	print 'REQ: ' + req.text
 	return req
 
 def returnOrderMappings():
