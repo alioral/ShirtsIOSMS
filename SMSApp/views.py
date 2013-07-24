@@ -26,7 +26,8 @@ def reply_to_sms_messages(request):
         orders = models.ShirtRequest.objects(phoneNumber=incomingPhoneNumber)
 
         if orders.count() > 0:
-            if incomingText in YES_NO_ARRAY:
+            if incomingText in constants.YES_NO_ARRAY:
+                print 'Over here. Calm down'
                 msg = constants.SUCCESS_MESSAGE_CANCELLATION
                 
                 if incomingText in constants.YES_ARRAY:
