@@ -14,17 +14,17 @@ connect('heroku_app17085708', host= constants.DB_URL)
 @twilio_view
 def reply_to_sms_messages(request):
     
-    #requestQueryDict = request.POST.copy()
+    requestQueryDict = request.POST.copy()
 
     try:
-        #incomingPhoneNumber = requestQueryDict['From'].replace('%2B', '')
-        #incomingText = requestQueryDict['Body']
+        incomingPhoneNumber = requestQueryDict['From'].replace('%2B', '')
+        incomingText = requestQueryDict['Body']
 
-        incomingPhoneNumber = '+905316326123'
-        incomingText = 'RANDOMSTR'
+        #incomingPhoneNumber = '+905316326123'
+        #incomingText = 'RANDOMSTR'
 
         print 'incomingPhoneNumber: ' + incomingPhoneNumber
-        #print 'incomingText: ' + requestQueryDict['Body']
+        print 'incomingText: ' + requestQueryDict['Body']
 
         
         orders = models.ShirtRequest.objects(phoneNumber=incomingPhoneNumber)
