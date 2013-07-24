@@ -14,16 +14,22 @@ connect('heroku_app17085708', host= constants.DB_URL)
 @twilio_view
 def reply_to_sms_messages(request):
     
-    requestQueryDict = request.POST.copy()
+    #requestQueryDict = request.POST.copy()
 
     try:
-        incomingPhoneNumber = requestQueryDict['From'].replace('%2B', '')
-        incomingText = requestQueryDict['Body']
+        #incomingPhoneNumber = requestQueryDict['From'].replace('%2B', '')
+        #incomingText = requestQueryDict['Body']
+
+        incomingPhoneNumber = '+905316326123'
+        incomingText = 'RANDOMSTR'
 
         print 'incomingPhoneNumber: ' + incomingPhoneNumber
-        print 'incomingText: ' + requestQueryDict['Body']
+        #print 'incomingText: ' + requestQueryDict['Body']
 
+        
         orders = models.ShirtRequest.objects(phoneNumber=incomingPhoneNumber)
+
+        artWorkURL = orders.first()['shirtPicturePath']
 
         if orders.count() > 0:
             if incomingText in constants.YES_NO_ARRAY:
@@ -33,7 +39,7 @@ def reply_to_sms_messages(request):
                 if incomingText in constants.YES_ARRAY:
                     #msg = constants.SUCCESS_MESSAGE
                     print 'Going to make the request'
-                    requestMapping = helper.returnOrderMappings()
+                    requestMapping = helper.returnOrderMappings(artWorkURL)
                     print type(requestMapping)
                     getResponse = helper.makeRequest('POST', 'https://www.shirts.io/api/v1/order/', 
                         requestMapping)
@@ -47,17 +53,19 @@ def reply_to_sms_messages(request):
             print 'In here'
             picturePath = helper.generateShirtImage(incomingPhoneNumber, 
                                                     incomingText)
-            print 'picturePath: ' + picturePath
+
+            pictureLink = constants.APPLICATION_IMAGE_LINK + incomingPhoneNumber + ".png"
             newOrder = models.ShirtRequest(phoneNumber = incomingPhoneNumber)
             newOrder.shirtMessage = incomingText
-            newOrder.shirtPicturePath = picturePath
+            newOrder.shirtPicturePath = pictureLink
             newOrder.save()
+
             print 'all saved'
-            msg = helper.generateVerification(constants.APPLICATION_IMAGE_LINK + 
-                incomingPhoneNumber + ".png")
+            msg = helper.generateVerification(pictureLink)
             print 'myFinalMessage: ' + msg
     except Exception as e:
-        msg = constants.ERROR_MESSAGE_SERVER
+        msg = constants.ERROR_MESSAGE_SERVER 
+        msg = msg + 'Exception Type: ' + type(e).__name__
 
     r = Response()
     r.sms(msg)

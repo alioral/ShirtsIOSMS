@@ -1,5 +1,6 @@
 import requests
 import PIL
+import time
 
 from PIL import ImageFont
 from PIL import Image
@@ -40,14 +41,14 @@ def makeRequest(method, url, mapping):
 	print 'REQ: ' + req.text
 	return req
 
-def returnOrderMappings():
+def returnOrderMappings(artwork):
 	mapping = {'api_key': '63aae231cdab277428c0c4e73ee2e9f3ccbe6c42',
 		       'test':'True', 'design':'True', 'price':'18.41', 
 		       'garment[0][product_id]': '3',
 		       'garment[0][color]':'White',
 		       'garment[0][sizes][lrg]': '1',
 		       'print[front][color_count]':'1',
-		       'print[front][artwork]':'http://i488.photobucket.com/albums/rr249/STACIA_GIRL_2009/ANIMALES/koala.png',
+		       'print[front][artwork]':artwork,
 		       'print[front][proof]':'http://www.stanford.edu/~jay/koalas/Koala450j.jpg',
 		       'addresses[0][name]':'John Doe',
 		       'addresses[0][address]':'123 Hope Ln.',
@@ -60,10 +61,9 @@ def returnText(obj):
 	try:
 		jsonObject = obj['result']
 		msg = 'Order ID: ' + jsonObject['order_id']
-		msg = msg + '\nDelivery Date: '+ str(jsonObject['delivery_date'])
+		#msg = msg + '\nDelivery Date: '+ str(jsonObject['delivery_date'])
+		msg = msg + '\nDelivery Date: ' + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(jsonObject['delivery_date']))
 		msg = msg + '\nNotes:'
-		#for w in jsonObject['warnings']:
-			#msg = msg + '\n' + w
 		lastNoteIndex = len(jsonObject['warnings']) - 1
 		msg += jsonObject['warnings'][lastNoteIndex]
 	except:
