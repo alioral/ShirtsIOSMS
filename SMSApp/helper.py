@@ -33,6 +33,7 @@ def makeRequest(method, url, mapping):
 	else:
 		req = requests.post(url, data = mapping)
 
+	print 'REQ: ' + req
 	return req
 
 def returnOrderMappings():
