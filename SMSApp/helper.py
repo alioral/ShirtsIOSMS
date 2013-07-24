@@ -29,16 +29,16 @@ def generateVerification(link):
 
 def makeRequest(method, url, mapping):
 
-	print 'Method: ' + method
-	print 'URL: ' + url
-	print 'Mapping: ' + str(mapping)
+	#print 'Method: ' + method
+	#print 'URL: ' + url
+	#print 'Mapping: ' + str(mapping)
 
 	if method == 'GET':
 		req = requests.get(url, params = mapping)
 	else:
 		req = requests.post(url, data = mapping)
 
-	print 'REQ: ' + req.text
+	#print 'REQ: ' + req.text
 	return req
 
 def returnOrderMappings(artwork):
@@ -61,7 +61,6 @@ def returnText(obj):
 	try:
 		jsonObject = obj['result']
 		msg = 'Order ID: ' + jsonObject['order_id']
-		#msg = msg + '\nDelivery Date: '+ str(jsonObject['delivery_date'])
 		msg = msg + '\nDelivery Date: ' + time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(jsonObject['delivery_date']))
 		msg = msg + '\nNotes:'
 		lastNoteIndex = len(jsonObject['warnings']) - 1

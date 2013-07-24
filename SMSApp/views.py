@@ -20,39 +20,34 @@ def reply_to_sms_messages(request):
         incomingPhoneNumber = requestQueryDict['From'].replace('%2B', '')
         incomingText = requestQueryDict['Body']
 
-        #incomingPhoneNumber = '+905316326123'
-        #incomingText = 'RANDOMSTR'
-
-        print 'incomingPhoneNumber: ' + incomingPhoneNumber
-        print 'incomingText: ' + requestQueryDict['Body']
+        #print 'incomingPhoneNumber: ' + incomingPhoneNumber
+        #print 'incomingText: ' + requestQueryDict['Body']
 
         
         orders = models.ShirtRequest.objects(phoneNumber=incomingPhoneNumber)
 
-        
-
         if orders.count() > 0:
 
             if incomingText in constants.YES_NO_ARRAY:
-                print 'Over here. Calm down'
+                #print 'Over here. Calm down'
                 msg = constants.SUCCESS_MESSAGE_CANCELLATION
                 
                 if incomingText in constants.YES_ARRAY:
-                    artWorkURL = orders.first()['shirtPicturePath']
+                    artWorkURL = str(orders.first()['shirtPicturePath'])
                     #msg = constants.SUCCESS_MESSAGE
-                    print 'Going to make the request'
+                    #print 'Going to make the request'
                     requestMapping = helper.returnOrderMappings(artWorkURL)
-                    print type(requestMapping)
+                    #print type(requestMapping)
                     getResponse = helper.makeRequest('POST', 'https://www.shirts.io/api/v1/order/', 
                         requestMapping)
                     msg = helper.returnText(getResponse.json())
-                    print 'finalMessage: ' + msg
+                    #print 'finalMessage: ' + msg
 
                 orders.delete()
             else:
                 msg = constants.ERROR_MESSAGE_ALREADY_HAVE_SHIRT_REQUEST
         else:
-            print 'In here'
+            #print 'In here'
             picturePath = helper.generateShirtImage(incomingPhoneNumber, 
                                                     incomingText)
 
@@ -62,12 +57,12 @@ def reply_to_sms_messages(request):
             newOrder.shirtPicturePath = pictureLink
             newOrder.save()
 
-            print 'all saved'
+            #print 'all saved'
             msg = helper.generateVerification(pictureLink)
-            print 'myFinalMessage: ' + msg
+            #print 'myFinalMessage: ' + msg
     except Exception as e:
         msg = constants.ERROR_MESSAGE_SERVER 
-        msg = msg + 'Exception Type: ' + type(e).__name__
+        #msg = msg + ' Exception Type: ' + type(e).__name__
 
     r = Response()
     r.sms(msg)
