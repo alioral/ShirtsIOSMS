@@ -1,7 +1,7 @@
 # Create your views here.
 from twilio.twiml import Response
 from django_twilio.decorators import twilio_view
-from django.shortcuts import render
+from django.shortcuts import HttpResponse, render
 from mongoengine import *
 
 import models
@@ -26,11 +26,14 @@ def reply_to_sms_messages(request):
         orders = models.ShirtRequest.objects(phoneNumber=incomingPhoneNumber)
 
         if orders.count() > 0:
-            if incomingText in ["yes", "YES", "no", "NO"]:
-                msg = 'Accepted or rejected to print shirt'
+            if incomingText in YES_NO_ARRAY:
+                msg = constants.SUCCESS_MESSAGE_CANCELLATION
                 
                 if incomingText in constants.YES_ARRAY:
-                    msg = constants.SUCCESS_MESSAGE
+                    #msg = constants.SUCCESS_MESSAGE
+                    getResponse = helper.makeRequest('POST', 'https://www.shirts.io/api/v1/order/', 
+                                      constants.ORDER_API_MAPPINGS)
+                    msg = helper.returnText(getResponse.json())
 
                 orders.delete()
             else:
@@ -54,7 +57,4 @@ def reply_to_sms_messages(request):
     r = Response()
     r.sms(msg)
     return r
-
-def show_image(request):
-    return render(request, 'img.html', {'url_of_image': './SMSApp/shirtimages/shirt.png'})
     
