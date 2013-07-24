@@ -38,6 +38,7 @@ def reply_to_sms_messages(request):
                     getResponse = helper.makeRequest('POST', 'https://www.shirts.io/api/v1/order/', 
                         requestMapping)
                     msg = helper.returnText(getResponse.json())
+                    print 'finalMessage: ' + msg
 
                 orders.delete()
             else:
@@ -56,10 +57,7 @@ def reply_to_sms_messages(request):
                 incomingPhoneNumber + ".png")
             print 'myFinalMessage: ' + msg
     except Exception as e:
-        import traceback, os.path
-        top = traceback.extract_stack()[-1]
-        print ', '.join([type(e).__name__, os.path.basename(top[0]), str(top[1])])
-        msg = constants.ERROR_MESSAGE_SERVER + type(e).__name__
+        msg = constants.ERROR_MESSAGE_SERVER
 
     r = Response()
     r.sms(msg)
