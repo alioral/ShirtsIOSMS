@@ -29,14 +29,16 @@ def reply_to_sms_messages(request):
         
         orders = models.ShirtRequest.objects(phoneNumber=incomingPhoneNumber)
 
-        artWorkURL = orders.first()['shirtPicturePath']
+        
 
         if orders.count() > 0:
+
             if incomingText in constants.YES_NO_ARRAY:
                 print 'Over here. Calm down'
                 msg = constants.SUCCESS_MESSAGE_CANCELLATION
                 
                 if incomingText in constants.YES_ARRAY:
+                    artWorkURL = orders.first()['shirtPicturePath']
                     #msg = constants.SUCCESS_MESSAGE
                     print 'Going to make the request'
                     requestMapping = helper.returnOrderMappings(artWorkURL)
