@@ -89,7 +89,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '+lo%&97u^dgx9rrm28inwy6@pfn*p43u%f4pe364-tvcib%)g%'
+SECRET_KEY = <YOUR_SECRET_KEY>
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -134,12 +134,10 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
-TWILIO_ACCOUNT_SID = 'AC8a97d93c8cdb604077dc1181c4b96d25'
-TWILIO_AUTH_TOKEN = 'a4d6414f605719f467552bfc20f184f5'
-TWILIO_DEFAULT_CALLERID = '6235525529'
+TWILIO_ACCOUNT_SID = <YOUR_TWILIO_ACCOUNT_SID>
+TWILIO_AUTH_TOKEN = <YOUR_TWILIO_AUTH_TOKEN>
+TWILIO_DEFAULT_CALLERID = <YOUR_TWILIO_DEFAULT_CALLERID>
 
-
-APPLICATION_IMAGE_LINK = 'http://guarded-caverns-8300.herokuapp.com/image/'
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.

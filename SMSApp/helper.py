@@ -1,6 +1,7 @@
 import requests
 import PIL
 import time
+import constants
 
 from PIL import ImageFont
 from PIL import Image
@@ -8,9 +9,9 @@ from PIL import ImageDraw
 from SMSProject import settings
 
 
+
 def generateShirtImage(phoneNumber, message):
 	
-
 	font = ImageFont.truetype('SMSProject/static/fonts/kberry.ttf', 30)
 	img = Image.open('SMSApp/shirtimages/shirt.png')
 	draw = ImageDraw.Draw(img)
@@ -29,20 +30,15 @@ def generateVerification(link):
 
 def makeRequest(method, url, mapping):
 
-	#print 'Method: ' + method
-	#print 'URL: ' + url
-	#print 'Mapping: ' + str(mapping)
-
 	if method == 'GET':
 		req = requests.get(url, params = mapping)
 	else:
 		req = requests.post(url, data = mapping)
 
-	#print 'REQ: ' + req.text
 	return req
 
 def returnOrderMappings(artwork):
-	mapping = {'api_key': '63aae231cdab277428c0c4e73ee2e9f3ccbe6c42',
+	mapping = {'api_key': constants.SHIRTS_IO_API_KEY,
 		       'test':'True', 'design':'True', 'price':'18.41', 
 		       'garment[0][product_id]': '3',
 		       'garment[0][color]':'White',
